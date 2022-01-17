@@ -9,4 +9,10 @@
 export default {}
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+a {
+  &:not(:last-of-type) {
+    margin-right: 2rem;
+  }
+}
+</style>

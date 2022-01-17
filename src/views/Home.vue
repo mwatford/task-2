@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home pt-12">
     <GameSelect></GameSelect>
   </div>
 </template>
