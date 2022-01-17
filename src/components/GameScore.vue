@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     getClassList(el, index) {
-      if (index === 0) return 'header__row'
+      if (index === 0) return 'history__row'
       return ['history__row', `history__row--${el.result ? 'green' : 'red'}`]
     },
   },
@@ -54,6 +54,7 @@ export default {
 
   &__row {
     border: 1px solid black;
+    background-color: #bbbbbb;
 
     &--red {
       background-color: #ff5c5c;
@@ -64,8 +65,9 @@ export default {
     }
   }
 
-
-  thead, td, th {
+  thead,
+  td,
+  th {
     border: 1px solid black;
   }
 }
