@@ -16,10 +16,7 @@
         <tr
           v-for="(el, index) in game.history"
           :key="index"
-          :class="[
-            'history__row',
-            `history__row--${el.result ? 'green' : 'red'}`,
-          ]"
+          :class="getClassList(el, index)"
         >
           <td>{{ el.guess }}</td>
           <td>{{ el.data.value }}</td>
@@ -39,6 +36,12 @@ export default {
   computed: {
     score() {
       return parseFloat((this.game.correctGuesses * 0.1).toPrecision(3))
+    },
+  },
+  methods: {
+    getClassList(el, index) {
+      if (index === 0) return 'header__row'
+      return ['history__row', `history__row--${el.result ? 'green' : 'red'}`]
     },
   },
 }
