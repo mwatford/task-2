@@ -7,10 +7,9 @@
     </div>
     <table class="history mt-6">
       <thead>
-        <tr>
-          <td>Guess</td>
-          <td>Value</td>
-        </tr>
+        <th>Turn</th>
+        <th>Guess</th>
+        <th>Value</th>
       </thead>
       <tbody>
         <tr
@@ -18,7 +17,8 @@
           :key="index"
           :class="getClassList(el, index)"
         >
-          <td>{{ el.guess }}</td>
+          <td>{{ index || '-' }}</td>
+          <td>{{ el.guess || '-' }}</td>
           <td>{{ el.data.value }}</td>
         </tr>
       </tbody>
@@ -50,8 +50,11 @@ export default {
 <style lang="scss" scoped>
 .history {
   width: 100%;
+  border: 1px solid black;
 
   &__row {
+    border: 1px solid black;
+
     &--red {
       background-color: #ff5c5c;
     }
@@ -59,6 +62,11 @@ export default {
     &--green {
       background-color: #5cff64;
     }
+  }
+
+
+  thead, td, th {
+    border: 1px solid black;
   }
 }
 </style>
