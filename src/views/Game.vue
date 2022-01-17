@@ -1,7 +1,8 @@
 <template>
   <div class="content w-full">
-    <div class="flex flex-col ml-auto items-center">
-      <img v-if="current" :src="current.data.image" alt="" class="card mt-6" />
+    <div class="flex flex-col mt-6 ml-auto items-center">
+      <router-view />
+      <img v-if="current" :src="img" alt="" class="card mt-6" />
       <div class="mx-auto my-6">
         <button
           @click="() => onUserSelect('lower')"
@@ -24,12 +25,23 @@
 </template>
 
 <script>
-import { getData, checkAnswer } from '@/lib/card'
+import games from '@/lib/games'
 import GameScore from '@/components/GameScore.vue'
+import { useRoute } from 'vue-router'
 
 export default {
   components: {
     GameScore,
+  },
+  setup() {
+    const route = useRoute()
+
+    const { checkAnswer, getData } = games[route.name]
+
+    return {
+      checkAnswer,
+      getData,
+    }
   },
   data() {
     return {
@@ -37,6 +49,7 @@ export default {
         turnsLeft: 30,
         history: [],
         correctGuesses: 0,
+        type: this.$route.name,
       },
       guess: '',
       inputsDisabled: false,
@@ -46,9 +59,21 @@ export default {
     current() {
       return this.game.history.at(-1) ?? false
     },
+    img() {
+      switch (this.game.type) {
+        case 'dice': {
+          return `http://roll.diceapi.com/images/poorly-drawn/d6/${this.current.data.value}.png`
+        }
+        case 'card': {
+          return this.current.data.image
+        }
+        default:
+          return ''
+      }
+    },
   },
   async beforeCreate() {
-    const data = await getData()
+    const data = await this.getData()
     this.updateHistory({ data })
   },
   methods: {
@@ -58,11 +83,13 @@ export default {
     async onUserSelect(guess) {
       this.guess = guess
       this.disableInputs(true)
-      const data = await getData()
-      const result = checkAnswer(this.guess, this.current.data, data)
+      
+      const data = await this.getData()
+      const result = this.checkAnswer(this.guess, this.current.data, data)
+      
       this.updateHistory({ data, result, guess: this.guess })
-      if (result) this.game.correctGuesses++
       this.game.turnsLeft--
+      if (result) this.game.correctGuesses++
       if (!this.game.turnsLeft) return this.disableInputs(true)
       this.disableInputs(false)
     },

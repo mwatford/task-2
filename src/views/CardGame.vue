@@ -1,4 +1,6 @@
-<template>card game</template>
+<template>
+  <h1>Pick a Card</h1>
+</template>
 
 <script>
 export default {}

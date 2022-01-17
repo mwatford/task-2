@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <h1>Roll a Dice</h1>
 </template>
 
 <script>
