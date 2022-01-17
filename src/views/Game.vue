@@ -1,6 +1,6 @@
 <template>
   <div class="content w-full">
-    <div class="flex flex-col mr-6">
+    <div class="flex flex-col ml-auto items-center">
       <img v-if="current" :src="current.data.image" alt="" class="card mt-6" />
       <div class="mx-auto my-6">
         <button
@@ -19,7 +19,7 @@
         </button>
       </div>
     </div>
-    <GameScore :game="game" class="ml-6" />
+    <GameScore :game="game" class="ml-auto mr-12" />
   </div>
 </template>
 
