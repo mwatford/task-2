@@ -83,14 +83,16 @@ export default {
     async onUserSelect(guess) {
       this.guess = guess
       this.disableInputs(true)
-      
+
       const data = await this.getData()
       const result = this.checkAnswer(this.guess, this.current.data, data)
-      
+
       this.updateHistory({ data, result, guess: this.guess })
       this.game.turnsLeft--
+
       if (result) this.game.correctGuesses++
-      if (!this.game.turnsLeft) return this.disableInputs(true)
+      if (this.game.turnsLeft < 1) return this.disableInputs(true)
+
       this.disableInputs(false)
     },
     disableInputs(state) {
