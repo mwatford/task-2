@@ -86,7 +86,7 @@ export default {
     window.onbeforeunload = this.saveGame
 
     if (this.$store.getters['initGame']) {
-      this.startGame()
+      await this.startGame()
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -113,11 +113,14 @@ export default {
       this.removeTurn()
 
       if (result) this.updateScore()
-      if (this.isGameOver) return this.disableInputs(true)
 
       this.disableInputs(false)
     },
     disableInputs(state) {
+      if (this.isGameOver) {
+        this.inputsDisabled = false
+        return
+      }
       this.inputsDisabled = state
     },
     async startGame() {
