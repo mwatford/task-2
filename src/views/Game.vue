@@ -6,19 +6,26 @@
       <div class="mx-auto my-6">
         <button
           @click="() => onUserSelect('lower')"
-          :disabled="inputsDisabled"
+          :disabled="buttonsActive"
           class="mr-3 button button--red"
         >
           Lower
         </button>
         <button
           @click="() => onUserSelect('higher')"
-          :disabled="inputsDisabled"
+          :disabled="buttonsActive"
           class="ml-3 button button--green"
         >
           Higher
         </button>
       </div>
+      <button
+        v-if="isGameOver"
+        @click="startGame"
+        class="mt-6 button button--green"
+      >
+        Play Again
+      </button>
     </div>
     <GameScore class="ml-auto mr-12" />
   </div>
@@ -68,6 +75,9 @@ export default {
           return ''
       }
     },
+    buttonsActive() {
+      return this.inputsDisabled || this.isGameOver
+    },
     isGameOver() {
       return this.$store.getters['isGameOver']
     },
@@ -76,8 +86,7 @@ export default {
     window.onbeforeunload = this.saveGame
 
     if (this.$store.getters['initGame']) {
-      const data = await this.getData()
-      this.$store.dispatch('createGame', { type: this.$route.name, data })
+      this.startGame()
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -110,6 +119,10 @@ export default {
     },
     disableInputs(state) {
       this.inputsDisabled = state
+    },
+    async startGame() {
+      const data = await this.getData()
+      this.$store.dispatch('createGame', { type: this.$route.name, data })
     },
   },
 }
