@@ -11,10 +11,29 @@
   color: #2c3e50;
 }
 
-.flex {
-  &--col {
-    display: flex;
-    flex-direction: column;
+.button {
+  padding: 1rem 2rem;
+  border: 2px solid #000;
+  border-radius: 1rem;
+
+  &:disabled {
+    border-color: gray;
+    pointer-events: none;
+  }
+
+  &--red {
+    border-color: red;
+
+    &:hover {
+      background-color: #ff5c5c;
+    }
+  }
+  &--green {
+    border-color: green;
+
+    &:hover {
+      background-color: #5cff64;
+    }
   }
 }
 </style>

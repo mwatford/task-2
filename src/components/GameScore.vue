@@ -28,12 +28,10 @@
 
 <script>
 export default {
-  props: {
-    game: {
-      required: true,
-    },
-  },
   computed: {
+    game() {
+      return this.$store.state.game
+    },
     score() {
       return parseFloat((this.game.correctGuesses * 0.1).toPrecision(3))
     },
