@@ -70,7 +70,7 @@ export default {
     },
     isGameOver() {
       return this.$store.getters['isGameOver']
-    }
+    },
   },
   async created() {
     window.onbeforeunload = this.saveGame
@@ -79,6 +79,10 @@ export default {
       const data = await this.getData()
       this.$store.dispatch('createGame', { type: this.$route.name, data })
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    if (!from.name) next('/')
+    else next()
   },
   methods: {
     ...mapMutations({
