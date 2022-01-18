@@ -117,10 +117,6 @@ export default {
       this.disableInputs(false)
     },
     disableInputs(state) {
-      if (this.isGameOver) {
-        this.inputsDisabled = false
-        return
-      }
       this.inputsDisabled = state
     },
     async startGame() {
