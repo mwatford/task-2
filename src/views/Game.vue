@@ -19,7 +19,7 @@ import GameScore from '@/components/GameScore.vue'
 import GameControls from '@/components/GameControls.vue'
 import { useRoute } from 'vue-router'
 import { mapState, mapMutations } from 'vuex'
-import {saveGame} from '@/utils/game'
+import { saveGame } from '@/utils/game'
 
 export default {
   components: {
