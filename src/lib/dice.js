@@ -1,8 +1,12 @@
-export const getData = async () => {
-  const response = await fetch('http://roll.diceapi.com/json/d6')
-  const data = await response.json()
+export const getData = async onError => {
+  try {
+    const response = await fetch('http://roll.diceapi.com/json/d6')
+    const data = await response.json()
 
-  return data.dice[0]
+    return data.dice[0]
+  } catch (error) {
+    onError()
+  }
 }
 
 export const checkAnswer = (

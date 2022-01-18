@@ -106,7 +106,7 @@ export default {
       this.guess = guess
       this.disableInputs(true)
 
-      const data = await this.getData()
+      const data = await this.getData(this.handleError)
       const result = this.checkAnswer(this.guess, this.current.data, data)
 
       this.updateHistory({ data, result, guess: this.guess })
@@ -120,9 +120,13 @@ export default {
       this.inputsDisabled = state
     },
     async startGame() {
-      const data = await this.getData()
+      const data = await this.getData(this.handleError)
       this.$store.dispatch('createGame', { type: this.$route.name, data })
     },
+    handleError() {
+      alert('Error has occured')
+      this.$router.go('/')
+    }
   },
 }
 </script>

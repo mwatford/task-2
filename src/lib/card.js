@@ -1,10 +1,14 @@
-export const getData = async () => {
-  const response = await fetch(
-    'https://deckofcardsapi.com/api/deck/new/draw/?count=1'
-  )
-  const data = await response.json()
+export const getData = async onError => {
+  try {
+    const response = await fetch(
+      'https://deckofcardsapi.com/api/deck/new/draw/?count=1'
+    )
+    const data = await response.json()
 
-  return data.cards[0]
+    return data.cards[0]
+  } catch (error) {
+    onError()
+  }
 }
 
 export const checkAnswer = (guess, previous, current) => {
