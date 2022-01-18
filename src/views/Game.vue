@@ -19,6 +19,7 @@ import GameScore from '@/components/GameScore.vue'
 import GameControls from '@/components/GameControls.vue'
 import { useRoute } from 'vue-router'
 import { mapState, mapMutations } from 'vuex'
+import {saveGame} from '@/utils/game'
 
 export default {
   components: {
@@ -32,6 +33,7 @@ export default {
     return {
       checkAnswer,
       getData,
+      saveGame,
     }
   },
   data() {
@@ -67,7 +69,7 @@ export default {
     },
   },
   async created() {
-    window.onbeforeunload = this.saveGame
+    window.onbeforeunload = () => this.saveGame(this.game)
 
     if (this.$store.getters['initGame']) {
       await this.startGame()
@@ -83,9 +85,6 @@ export default {
       removeTurn: 'REMOVE_TURN',
       updateScore: 'UPDATE_SCORE',
     }),
-    saveGame() {
-      localStorage.setItem('game', JSON.stringify(this.game))
-    },
     async onUserSelect(guess) {
       this.guess = guess
       this.disableInputs(true)
