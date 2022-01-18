@@ -17,7 +17,7 @@
   border-radius: 1rem;
 
   &:hover {
-    border-color: gray;
+    border-color: #000;
     background-color: #bbb;
   }
 
@@ -30,6 +30,7 @@
     border-color: red;
 
     &:hover {
+      border-color: red;
       background-color: #ff5c5c;
     }
   }
@@ -37,6 +38,7 @@
     border-color: green;
 
     &:hover {
+      border-color: green;
       background-color: #5cff64;
     }
   }
