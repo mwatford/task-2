@@ -28,7 +28,7 @@ const getCardValue = card => {
     ACE: 14,
   }
 
-  if (values[card.value]) return values[card.value]
+  if (card.value in values) return values[card.value]
 
   return parseInt(card.value)
 }
