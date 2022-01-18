@@ -16,6 +16,11 @@
   border: 2px solid #000;
   border-radius: 1rem;
 
+  &:hover {
+    border-color: gray;
+    background-color: #bbb;
+  }
+
   &:disabled {
     border-color: gray;
     pointer-events: none;
