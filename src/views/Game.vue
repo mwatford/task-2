@@ -1,31 +1,13 @@
 <template>
   <div class="content w-full">
     <div class="flex flex-col mt-6 ml-auto items-center">
-      <router-view />
       <img v-if="img" :src="img" alt="" class="card mt-6" />
-      <div class="mx-auto my-6">
-        <button
-          @click="() => onUserSelect('lower')"
-          :disabled="buttonsActive"
-          class="mr-3 button button--red"
-        >
-          Lower
-        </button>
-        <button
-          @click="() => onUserSelect('higher')"
-          :disabled="buttonsActive"
-          class="ml-3 button button--green"
-        >
-          Higher
-        </button>
-      </div>
-      <button
-        v-if="isGameOver"
-        @click="startGame"
-        class="mt-6 button button--green"
-      >
-        Play Again
-      </button>
+      <GameControls
+        @userSelect="onUserSelect"
+        @startGame="startGame"
+        :isGameOver="isGameOver"
+        :buttonsActive="buttonsActive"
+      ></GameControls>
     </div>
     <GameScore class="ml-auto mr-12" />
   </div>
@@ -34,12 +16,14 @@
 <script>
 import games from '@/lib/games'
 import GameScore from '@/components/GameScore.vue'
+import GameControls from '@/components/GameControls.vue'
 import { useRoute } from 'vue-router'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
     GameScore,
+    GameControls,
   },
   setup() {
     const route = useRoute()
@@ -63,6 +47,9 @@ export default {
     current() {
       return this.game.history.at(-1) ?? false
     },
+    buttonsActive() {
+      return this.inputsDisabled || this.isGameOver
+    },
     img() {
       switch (this.game.type) {
         case 'dice': {
@@ -74,9 +61,6 @@ export default {
         default:
           return ''
       }
-    },
-    buttonsActive() {
-      return this.inputsDisabled || this.isGameOver
     },
     isGameOver() {
       return this.$store.getters['isGameOver']
@@ -126,7 +110,7 @@ export default {
     handleError() {
       alert('Error has occured')
       this.$router.go('/')
-    }
+    },
   },
 }
 </script>
