@@ -21,5 +21,3 @@ The task is to develop a simple game utilizing API http://roll.diceapi.com/ or h
 - If the player chooses “NO”, a new game starts
 - The project does not have time limitation, however it should not take more than a few hours
 - Any tools, frameworks, librialiers or packages can be used to complete the task
-- Submit the project the way you do when working with a team
-- This repository is created exclusively for your recruitment process and you can interact with it the way you like 
